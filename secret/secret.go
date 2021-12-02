@@ -44,8 +44,6 @@ func encryptString(input string) string {
 		panic(err)
 	}
 	return hex.EncodeToString(append(iv, ciphertext...))
-	//return hex.EncodeToString(append(
-	//iv, CBCEncrypt(Key, PKCS7([]byte(input), 16), iv)...))
 }
 
 func genKey() {
@@ -121,24 +119,21 @@ func Secret() {
 	go updateKey()
 	http.HandleFunc("/login", func(w http.ResponseWriter, r *http.Request) {
 		setupCORS(&w, r)
-		/* 		(w).Header().Set("Access-Control-Allow-Origin", "*")
-		   		(w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-		   		(w).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
-		*/switch r.Method {
+		switch r.Method {
 		case "OPTIONS":
 			return
 		case "POST":
-			// password := r.URL.Query().Get("password")
 			var cred Credential
-
-			// Try to decode the request body into the struct. If there is an error,
-			// respond to the client with the error message and a 400 status code.
 			err := json.NewDecoder(r.Body).Decode(&cred)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusBadRequest)
 				return
 			}
-
+			src_ip, err := requestSourceIp(r)
+			if err != nil {
+				panic(err)
+			}
+			fmt.Println("IP:", src_ip, "cred.Password:", cred.Password)
 			if cred.Password == "planet!!!11" {
 				expire := time.Now().AddDate(0, 0, 1)
 				userCookie := http.Cookie{
@@ -148,10 +143,6 @@ func Secret() {
 					Expires: expire,
 					MaxAge:  86400}
 				http.SetCookie(w, &userCookie)
-				src_ip, err := requestSourceIp(r)
-				if err != nil {
-					panic(err)
-				}
 				testCookie := http.Cookie{
 					Name:    "TEST",
 					Value:   encodeIP(src_ip),
@@ -163,12 +154,10 @@ func Secret() {
 					encryptString("Zero Cool"))
 			} else {
 				http.Error(w, "{\"data\": \"Invalid Password\"}", http.StatusUnauthorized)
-				//fmt.Fprintf(w, "{\"data\": \"Invalid login\"}")
 			}
 			return
 		default:
 			http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
-			/* fmt.Fprintf(w, "{\"data\": \"Sorry, only POST method supported.\"}") */
 			return
 		}
 
@@ -176,19 +165,11 @@ func Secret() {
 
 	http.HandleFunc("/whoami", func(w http.ResponseWriter, r *http.Request) {
 		setupCORS(&w, r)
-		/* 	(w).Header().Set("Access-Control-Allow-Origin", "*")
-		(w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-		(w).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
-		*/ //var cookie, err = r.Cookie("USER")
 		switch r.Method {
 		case "OPTIONS":
 			return
 		case "POST":
-			// password := r.URL.Query().Get("password")
 			var cred Credential
-
-			// Try to decode the request body into the struct. If there is an error,
-			// respond to the client with the error message and a 400 status code.
 			err := json.NewDecoder(r.Body).Decode(&cred)
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusBadRequest)
@@ -198,7 +179,6 @@ func Secret() {
 			if cred.Token != "" {
 				fmt.Println("cred.Token:", cred.Token)
 				w.Header().Set("Content-Type", "application/json")
-				// fmt.Fprintf(w, DecryptString(cookie.Value))
 				m, _ := json.Marshal(
 					map[string]string{"data": decryptString(cred.Token)})
 				fmt.Fprintf(w, "%s", string(m))
@@ -208,24 +188,14 @@ func Secret() {
 		default:
 			http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
 			return
-			/* fmt.Fprintf(w, "{\"data\": \"Sorry, only POST method supported.\"}") */
 		}
-		// if err == nil {
-		// 	// var value = cookie.Value
-		// 	w.Header().Set("Content-Type", "application/json")
-		// 	// fmt.Fprintf(w, DecryptString(cookie.Value))
-		// 	m, _ := json.Marshal(
-		// 		map[string]string{"user": DecryptString(cookie.Value)})
-		// 	fmt.Fprintf(w, string(m))
-		// }
+
 	})
 
 	// TODO: Remove
 	http.HandleFunc("/debug", func(w http.ResponseWriter, r *http.Request) {
 		var cookie, err = r.Cookie("TEST")
 		if err == nil {
-			// var cookievalue = cookie.Value
-			// fmt.Println(DecryptString(cookievalue))
 			IPAddress := decodeIP(cookie.Value)
 			if IPAddress != nil {
 				if IPAddress.IsLoopback() {
@@ -236,7 +206,6 @@ func Secret() {
 					}
 					input := r.URL.Query().Get("input")
 					dbg := r.URL.Query().Get("dbg")
-					// appending to existing query args
 					q := req.URL.Query()
 					q.Add("input", input)
 					q.Add("dbg", dbg)
@@ -252,12 +221,7 @@ func Secret() {
 						log.Fatal(err)
 					}
 					fmt.Fprintf(w, string(responseBody))
-
-					// fmt.Println(resp.Status)
-					// fmt.Println(string(responseBody))
-					// fmt.Println("doing stuff with:", IPAddress.To4())
 				} else {
-					//fmt.Println(IPAddress.To4(), "good IP, but not what I'm looking for")
 					http.Error(w, "Unauthorized", http.StatusForbidden)
 					return
 				}
@@ -267,8 +231,6 @@ func Secret() {
 				http.Error(w, "Not a valid IP", http.StatusForbidden)
 				return
 			}
-			//w.Header().Set("Content-Type", "text/plain; charset=us-ascii")
-			// fmt.Fprintf(w, "Your cookie decodes to: %s\n", IPAddress.To4())
 		}
 		return
 	})

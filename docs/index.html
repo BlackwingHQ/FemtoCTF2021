@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>FemtoCTF 2021</title>
+    <title>Blackwing FemtoCTF 2021</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
     <!-- Google Fonts Roboto -->
@@ -49,16 +49,20 @@
     <!-- Collapsible wrapper -->
 
     <!-- Right elements -->
-    <div class="d-flex flex-row align-items-center navbar-nav nav-flex-icons">
+      <ul class="navbar-nav ml-auto nav-flex-icons align-items-center flex-row">
       <!-- Icon -->
-      <a class="nav-link" href="https://twitter.com/blackwinghq">
-        <i class="fab fa-twitter fa-lg"></i>
-      </a>
-      <a class="nav-link" href="https://github.com/blackwinghq/FemtoCTF2021">
-        <i class="fab fa-github fa-lg"></i>
-      </a>
-
-    </div>
+      <li class="nav-item">
+        <a class="nav-link waves-effect waves-light" href="https://twitter.com/blackwinghq">
+          <i class="fab fa-twitter fa-lg"></i>
+        </a>
+      </li>
+      <li>&nbsp;</li>
+      <li class="nav-item">
+        <a class="nav-link waves-effect waves-light" href="https://github.com/blackwinghq/FemtoCTF2021">
+          <i class="fab fa-github fa-lg"></i>
+        </a>
+      </li>
+    </ul>
     <!-- Right elements -->
   </div>
   <!-- Container wrapper -->
@@ -75,8 +79,9 @@
         <div class="d-flex justify-content-center align-items-center">
         <div class="text-center">
         <div class="form-outline">
+          Hack the ...
           <input type="password" id="typePassword" class="form-control" />
-          <label class="form-label" for="typePassword">Hack the ...</label>
+          <!-- <label class="form-label" for="typePassword">Hack the ...</label> -->
         </div>
         <button type="submit" id="login_btn" class="btn btn-primary btn-block mb-4" data-mdb-toggle="modal" data-mdb-target="#loginModal">Sign in</button>
         </div>
