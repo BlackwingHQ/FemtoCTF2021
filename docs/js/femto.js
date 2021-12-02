@@ -31,7 +31,7 @@ $(function () {
                         });
                 },
                 error: function (response) {
-                    $('#out_form').val("Incorrect password.")
+                    $('#out_form').val("Incorrect password.\n(psst. check out the code on GitHub)")
                 }
             });
         }
