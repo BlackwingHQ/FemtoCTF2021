@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Material Design for Bootstrap</title>
+    <!-- MDB icon -->
+    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
+    />
+    <!-- MDB -->
+    <link rel="stylesheet" href="css/mdb.min.css" />
+  </head>
+  <body>
+    <header>
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top scrolling-navbar">
+  <!-- Container wrapper -->
+  <div class="container-fluid">
+    <!-- Toggle button -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-mdb-toggle="collapse"
+      data-mdb-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Navbar brand -->
+      <a class="navbar-brand" href="#"><strong><code>FemtoCTF 2021</code></strong></a>
+      <!-- Left links -->
+      <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="#" data-mdb-toggle="modal" data-mdb-target="#aboutModal">About</a>
+        </li>
+      </ul>
+      <!-- Left links -->
+    </div>
+    <!-- Collapsible wrapper -->
+
+    <!-- Right elements -->
+    <div class="d-flex flex-row align-items-center navbar-nav nav-flex-icons">
+      <!-- Icon -->
+      <a class="nav-link" href="https://twitter.com/blackwinghq">
+        <i class="fab fa-twitter fa-lg"></i>
+      </a>
+      <a class="nav-link" href="https://github.com/blackwinghq/">
+        <i class="fab fa-github fa-lg"></i>
+      </a>
+
+    </div>
+    <!-- Right elements -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
+
+      <!-- Navbar -->
+    
+      <!-- Jumbotron -->
+      <div class="p-5 text-center bg-light" style="margin-top: 58px;">
+        <h1 class="mb-3">FemtoCTF 2021</h1>
+        <img class="mb-2" src="img/0DAYIDA.png" height="250">
+        <div class="container" name="login">
+        <div class="d-flex justify-content-center align-items-center">
+        <div class="text-center">
+        <div class="form-outline">
+          <input type="password" id="typePassword" class="form-control" />
+          <label class="form-label" for="typePassword">Hack the ...</label>
+        </div>
+        <button type="submit" id="login_btn" class="btn btn-primary btn-block mb-4" data-mdb-toggle="modal" data-mdb-target="#loginModal">Sign in</button>
+        </div>
+        </div>
+        </div>
+      </div>
+      <!-- Jumbotron -->
+    </header>
+    <footer class="bg-light text-center text-lg-start">
+      <!-- Copyright -->
+      <div class="text-center p-3" style="background-color: rgb(255, 255, 255);">
+        Made with ❤️ by <a class="text-dark" href="https://blackwinghq.com/">Blackwing Intelligence</a> <br />© 2021-2022
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!-- MDB -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+    <!-- Custom scripts -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="js/femto.js"></script>
+  </body>
+<!-- Modal -->
+<div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">About FemtoCTF</h4>
+                <button
+                type="button"
+                class="btn-close"
+                data-mdb-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+                <p><code>FemtoCTF</code> is a tiny CTF built by <a href="https://blackwinghq.com">Blackwing Intelligence</a> to help in our
+                  search to find new security research colleagues.</p>
+                <p>Brought to you by: Blackwing Intelligence</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="loginModalLabel">Login Result</h4>
+                <button
+                type="button"
+                class="btn-close"
+                data-mdb-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <textarea class="form-control text-monospace" id="out_form" rows="5"
+              placeholder="Invalid Login" style="font-size: 0.8rem"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>
